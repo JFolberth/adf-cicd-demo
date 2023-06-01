@@ -47,8 +47,8 @@ runs:
     - name: Run Pre-deployment script
       run: |
         ${{ github.workspace }}/PrePostDeploymentScript.ps1 `
-          -armTemplate "${{ inputs.arm-template-file }}" `'
-          -armTemplateParameters "${{ inputs.arm-template-parameters-file}}" `'
+          -armTemplate "${{ inputs.arm-template-file }}" `
+          -armTemplateParameters "${{ inputs.arm-template-parameters-file}}" `
           -ResourceGroupName "${{ inputs.resource-group-name }}" `
           -DataFactoryName "${{ inputs.data-factory-name }}" `
           -predeployment $true `
