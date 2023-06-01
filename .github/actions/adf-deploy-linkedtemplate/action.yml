@@ -58,7 +58,7 @@ runs:
     - name: Run ARM deploy
       uses: azure/arm-deploy@v1
       with:
-        resourceGroupName: ${{ inputs.resourceGroupName }}
+        resourceGroupName: ${{ inputs.resource-group-name }}
         template: ${{ inputs.arm-template-file }}
         parameters: ${{ inputs.arm-template-parameters-file }} ${{ inputs.additional-parameters }}
         
