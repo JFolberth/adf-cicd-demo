@@ -25,10 +25,8 @@ runs:
   using: 'composite'
   steps:
     - name: Set current date as env variable
-      shell: pwsh
-      run:  |
-          $date=$(Get-Date).AddDays(1)
-          echo "SASExpiration=$(date)" >> $GITHUB_ENV
+      shell: bash
+      run: echo "SASExpiration=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
     - name: Azure Login
       uses: azure/login@v1
       with:
