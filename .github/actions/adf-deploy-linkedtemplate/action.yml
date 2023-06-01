@@ -76,7 +76,7 @@ runs:
       uses: azure/arm-deploy@v1
       with:
         resourceGroupName: ${{ inputs.resource-group-name }}
-        template:  ${{ format('{0}/{1}','https://saadf1234deveus.blob.core.windows.net/templates/linkedTemplates/ArmTemplate_master.json',$(token))}}
+        template:  https://saadf1234deveus.blob.core.windows.net/templates/linkedTemplates/ArmTemplate_master.json$(token)
         parameters: ${{ format('{0}/{1}{2}','https://saadf1234deveus.blob.core.windows.net/templates/azuredatafactory/cicd-parameters', inputs.arm-template-parameters-file,$(token)) }}
         
     - name: Run Post-deployment script
