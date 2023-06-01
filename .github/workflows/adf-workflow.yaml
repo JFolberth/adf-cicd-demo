@@ -12,10 +12,10 @@ env:
   workingDir: 'azuredatafactory/src/'
   workingDirARMParameters: 'azuredatafactory/cicd-parameters/'
   arm-template-file: 'ARMTemplateForFactory.json'
-  dataFactoryNameDev: 'adf-demo-dev-eastus-001'
+  dataFactoryNameDev: 'adf-github-dev-eus'
   dataFactoryNameStaging: 'adf-demo-staging-eastus-001'
   dataFactoryNameProd: 'adf-demo-prod-eastus-001'
-  resourceGroupName: 'rg-datafactory-demo'
+  resourceGroupName: 'rg-github-dev-eus'
 
 jobs:
   job-build-adf-arm-template:
