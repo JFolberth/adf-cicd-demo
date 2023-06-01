@@ -36,15 +36,38 @@ runs:
       shell: pwsh
       run: |
          'az storage account create --name saadf1234deveus --resource-group ${{ inputs.resource-group-name }}'
+         
+    - name: Install Az PowerShell module
+      run: if('${{ inputs.skipAzModuleInstallation }}' -ne 'true') { Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force }
+      shell: pwsh
 
-    - name: Deploy resources
-      uses: Azure/data-factory-deploy-action@v1.2.0
+    - name: Run Pre-deployment script
+      run: |
+        ${{ github.workspace }}/PrePostDeploymentScript.ps1 `
+          -armTemplate "${{ inputs.armTemplateFile }}" `
+          -ResourceGroupName "${{ inputs.resourceGroupName }}" `
+          -DataFactoryName "${{ inputs.dataFactoryName }}" `
+          -predeployment $true `
+          -deleteDeployment $false
+      shell: pwsh
+
+    - name: Run ARM deploy
+      uses: azure/arm-deploy@v1
       with:
-        resourceGroupName: ${{ inputs.resource-group-name }}
-        dataFactoryName: ${{ inputs.data-factory-name }}
-        armTemplateFile: ${{ format('{0}/{1}', github.workspace, inputs.arm-template-file) }}
-        armTemplateParametersFile: ${{ format('{0}/{1}', 'azuredatafactory/cicd-parameters', inputs.arm-template-parameters-file) }}
-    
+        resourceGroupName: ${{ inputs.resourceGroupName }}
+        template: ${{ inputs.armTemplateFile }}
+        parameters: ${{ inputs.armTemplateParametersFile }} factoryName=${{ inputs.dataFactoryName }} ${{ inputs.additionalParameters }}
+        
+    - name: Run Post-deployment script
+      run: |
+        ${{ github.action_path }}/PrePostDeploymentScript.ps1 `
+          -armTemplate "${{ inputs.armTemplateFile }}" `
+          -ResourceGroupName "${{ inputs.resourceGroupName }}" `
+          -DataFactoryName '${{ inputs.dataFactoryName }}' `
+          -predeployment $false `
+          -deleteDeployment $true
+      shell: pwsh
+   
     - name: 'Delete Storage Account for Linked Templates'
       shell: pwsh
       run: |
