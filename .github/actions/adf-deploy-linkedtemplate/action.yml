@@ -17,6 +17,9 @@ inputs:
   azure-credentials:
     description: 'The Azure credentials'
     required: true
+  additional-parameters:
+    description: 'Addtional Override Parameters for the ARM Template Deployment'
+    required: false
 
 runs:
   using: 'composite'
@@ -44,9 +47,9 @@ runs:
     - name: Run Pre-deployment script
       run: |
         ${{ github.workspace }}/PrePostDeploymentScript.ps1 `
-          -armTemplate "${{ inputs.armTemplateFile }}" `
-          -ResourceGroupName "${{ inputs.resourceGroupName }}" `
-          -DataFactoryName "${{ inputs.dataFactoryName }}" `
+          -armTemplate "${{ inputs.arm-template-file }}" `
+          -ResourceGroupName "${{ inputs.resource-group-name }}" `
+          -DataFactoryName "${{ inputs.data-factory-name }}" `
           -predeployment $true `
           -deleteDeployment $false
       shell: pwsh
@@ -55,15 +58,15 @@ runs:
       uses: azure/arm-deploy@v1
       with:
         resourceGroupName: ${{ inputs.resourceGroupName }}
-        template: ${{ inputs.armTemplateFile }}
-        parameters: ${{ inputs.armTemplateParametersFile }} factoryName=${{ inputs.dataFactoryName }} ${{ inputs.additionalParameters }}
+        template: ${{ inputs.arm-template-file: }}
+        parameters: ${{ inputs.arm-template-parameters-file }} ${{ inputs.additional-parameters }}
         
     - name: Run Post-deployment script
       run: |
-        ${{ github.action_path }}/PrePostDeploymentScript.ps1 `
-          -armTemplate "${{ inputs.armTemplateFile }}" `
-          -ResourceGroupName "${{ inputs.resourceGroupName }}" `
-          -DataFactoryName '${{ inputs.dataFactoryName }}' `
+         ${{ github.workspace }}//PrePostDeploymentScript.ps1 `
+          -armTemplate "${{ inputs.arm-template-file }}" `
+          -ResourceGroupName "${{ inputs.resource-group-name }}" `
+          -DataFactoryName '${{ inputs.data-factory-name }}' `
           -predeployment $false `
           -deleteDeployment $true
       shell: pwsh
