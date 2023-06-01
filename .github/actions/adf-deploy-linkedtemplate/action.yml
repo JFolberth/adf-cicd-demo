@@ -28,7 +28,7 @@ runs:
       shell: pwsh
       run:  |
           $date=$(Get_Date).AddDays(1)
-          echo "SASExpiration=$(date) >> $GITHUB_ENV
+          echo "SASExpiration=$(date)" >> $GITHUB_ENV
     - name: Azure Login
       uses: azure/login@v1
       with:
