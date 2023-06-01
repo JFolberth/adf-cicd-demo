@@ -51,7 +51,7 @@ runs:
     - name: 'Create SAS Token'
       shell: pwsh
       run: |
-         $token= az storage container generate-sas --account-name saadf1234deveus --name templates --permissions r --expiry $(SASExpiration) --output tsv
+         $token= az storage container generate-sas --account-name saadf1234deveus --name templates --permissions r --expiry ${{ env.SASExpiration }} --output tsv
          echo "SAS_TOKEN=$token"| Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
     - name: 'Copy Linked Templates to Azure Storage'
       shell: pwsh
