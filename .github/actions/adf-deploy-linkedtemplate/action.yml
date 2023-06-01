@@ -58,7 +58,7 @@ runs:
       uses: azure/arm-deploy@v1
       with:
         resourceGroupName: ${{ inputs.resourceGroupName }}
-        template: ${{ inputs.arm-template-file: }}
+        template: ${{ inputs.arm-template-file }}
         parameters: ${{ inputs.arm-template-parameters-file }} ${{ inputs.additional-parameters }}
         
     - name: Run Post-deployment script
