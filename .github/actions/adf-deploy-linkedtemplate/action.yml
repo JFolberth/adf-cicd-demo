@@ -24,6 +24,8 @@ inputs:
 runs:
   using: 'composite'
   steps:
+   - name: Set current date as env variable
+      run: echo "SASExpiration=$(date +'%Y-%m-%d' -d "1 days")" >> $GITHUB_ENV
     - name: Azure Login
       uses: azure/login@v1
       with:
@@ -39,6 +41,20 @@ runs:
       shell: pwsh
       run: |
          'az storage account create --name saadf1234deveus --resource-group ${{ inputs.resource-group-name }}'
+      
+    - name: 'Create Container for Linked Templates'
+      shell: pwsh
+      run: |
+         'az storage container create --name saadf1234deveus --resource-group ${{ inputs.resource-group-name }}'
+      
+    - name: 'Create SAS Token'
+      shell: pwsh
+      run: |
+         '$token= az storage container generate-sas --account-name saadf1234deveus --name templates --permissions r --expiry $(SASExpiration) --output tsv' >> $GITHUB_ENV
+    - name: 'Copy Linked Templates to Azure Storage'
+      shell: pwsh
+      run: |
+         'az storage blob upload-batch --account-name saadf1234deveus --destination templates --source azuredatafactory'
          
     - name: Install Az PowerShell module
       run: if('${{ inputs.skipAzModuleInstallation }}' -ne 'true') { Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force }
