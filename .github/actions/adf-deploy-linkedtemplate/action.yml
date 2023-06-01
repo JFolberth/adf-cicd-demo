@@ -24,7 +24,7 @@ inputs:
 runs:
   using: 'composite'
   steps:
-   - name: Set current date as env variable
+    - name: Set current date as env variable
       run: echo "SASExpiration=$(date +'%Y-%m-%d' -d "1 days"')" >> $GITHUB_ENV
     - name: Azure Login
       uses: azure/login@v1
