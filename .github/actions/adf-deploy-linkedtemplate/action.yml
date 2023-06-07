@@ -39,13 +39,13 @@ runs:
         name: datafactory
         
     - name: 'Create Storage Account for Linked Templates'
-      shell: pwsh
-      run: |
+      uses: azure/CLI@v1
+      inlineScript: |
          'az storage account create --name saadf1234deveus --resource-group ${{ inputs.resource-group-name }}'
       
     - name: 'Create Container for Linked Templates'
-      shell: pwsh
-      run: |
+      uses: azure/CLI@v1
+      inlineScript: |
          'az storage container create --name saadf1234deveus --resource-group ${{ inputs.resource-group-name }}'
       
     - name: 'Create SAS Token'
@@ -54,8 +54,8 @@ runs:
          $token= az storage container generate-sas --account-name saadf1234deveus --name templates --permissions r --expiry ${{ env.SASExpiration }} --output tsv
          echo "SAS_TOKEN=$token"| Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
     - name: 'Copy Linked Templates to Azure Storage'
-      shell: pwsh
-      run: |
+      uses: azure/CLI@v1
+      inlineScript: |
          'az storage blob upload-batch --account-name saadf1234deveus --destination templates --source azuredatafactory'
          
     - name: Install Az PowerShell module
