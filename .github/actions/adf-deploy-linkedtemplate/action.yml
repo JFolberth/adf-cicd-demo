@@ -42,13 +42,13 @@ runs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-           'az storage account create --name saadf1234deveus --resource-group ${{ inputs.resource-group-name }}'
+           az storage account create --name saadf1234deveus --resource-group ${{ inputs.resource-group-name }}
       
     - name: 'Create Container for Linked Templates'
       uses: azure/CLI@v1
       with:
         inlineScript: |
-           'az storage container create --name saadf1234deveus --resource-group ${{ inputs.resource-group-name }}'
+           az storage container create --name saadf1234deveus --resource-group ${{ inputs.resource-group-name }}
       
     - name: 'Create SAS Token'
       shell: pwsh
@@ -59,7 +59,7 @@ runs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-           'az storage blob upload-batch --account-name saadf1234deveus --destination templates --source azuredatafactory'
+           az storage blob upload-batch --account-name saadf1234deveus --destination templates --source azuredatafactory
          
     - name: Install Az PowerShell module
       run: if('${{ inputs.skipAzModuleInstallation }}' -ne 'true') { Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force }
@@ -98,7 +98,7 @@ runs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-         'az storage account delete -name saadf1234deveus --resource-group ${{ inputs.resource-group-name }} --yes '
+         az storage account delete -name saadf1234deveus --resource-group ${{ inputs.resource-group-name }} --yes
 
     - name: Azure CLI script
       uses: azure/CLI@v1
