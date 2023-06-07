@@ -59,7 +59,7 @@ runs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-           az storage blob upload-batch --account-name saadf1234deveus --destination templates --source datafactory
+           az storage blob upload-batch --account-name saadf1234deveus --destination templates --source azuredatafactory
          
     - name: Install Az PowerShell module
       run: if('${{ inputs.skipAzModuleInstallation }}' -ne 'true') { Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force }
