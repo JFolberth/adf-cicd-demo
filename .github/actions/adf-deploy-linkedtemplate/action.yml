@@ -48,7 +48,7 @@ runs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-           az storage container create --name templates --acount-name saadf1234deveus
+           az storage container create --name templates --account-name saadf1234deveus
       
     - name: 'Create SAS Token'
       shell: pwsh
