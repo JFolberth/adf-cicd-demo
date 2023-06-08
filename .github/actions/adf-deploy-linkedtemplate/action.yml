@@ -68,7 +68,7 @@ runs:
     - name: Run Pre-deployment script
       run: |
         ${{ github.workspace }}/PrePostDeploymentScript.ps1 `
-          -armTemplate ${{ github.workspace }}/azuredatafactory/src/linkedTemplates/ARMTemplate_master.json`
+          -armTemplate datafactory/linkedTemplates/ARMTemplate_master.json`
           -ResourceGroupName "${{ inputs.resource-group-name }}" `
           -DataFactoryName "${{ inputs.data-factory-name }}" `
           -predeployment $true `
