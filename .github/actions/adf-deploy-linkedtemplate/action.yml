@@ -79,9 +79,7 @@ runs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-           az deployment group create --name ADFDeployment --resource-group ${{ inputs.resource-group-name }} `
-           --template-uri ${{ format('{0}?{1}', 'https://saadf1234deveus.blob.core.windows.net/templates/linkedTemplates/ArmTemplate_master.json',env.SAS_TOKEN) }} `
-           --parameters ${{ format('{0}/{1}?{2}', 'https://saadf1234deveus.blob.core.windows.net/templates/datafactory/cicd-parameters', inputs.arm-template-parameters-file, env.SAS_TOKEN) }}
+           az deployment group create --name ADFDeployment --resource-group ${{ inputs.resource-group-name }} --template-uri ${{ format('{0}?{1}', 'https://saadf1234deveus.blob.core.windows.net/templates/linkedTemplates/ArmTemplate_master.json',env.SAS_TOKEN) }} --parameters ${{ format('{0}/{1}?{2}', 'https://saadf1234deveus.blob.core.windows.net/templates/datafactory/cicd-parameters', inputs.arm-template-parameters-file, env.SAS_TOKEN) }}
 
    # - name: Run ARM deploy
    #  uses: azure/arm-deploy@v1
