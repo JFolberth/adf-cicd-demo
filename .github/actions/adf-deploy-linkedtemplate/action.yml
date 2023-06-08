@@ -101,7 +101,7 @@ runs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-         az storage account delete -name saadf1234deveus --resource-group ${{ inputs.resource-group-name }} --yes
+         az storage account delete --name saadf1234deveus --resource-group ${{ inputs.resource-group-name }} --yes
 
     - name: Azure CLI script
       uses: azure/CLI@v1
