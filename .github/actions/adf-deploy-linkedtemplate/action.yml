@@ -95,7 +95,6 @@ runs:
           -ResourceGroupName "${{ inputs.resource-group-name }}" `
           -DataFactoryName '${{ inputs.data-factory-name }}' `
           -predeployment $false `
-          -deleteDeployment $true
       shell: pwsh
    
     - name: 'Delete Storage Account for Linked Templates'
