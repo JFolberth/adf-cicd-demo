@@ -24,20 +24,12 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Fetch action
-      id: pl
-      uses: Rishabh510/Path-lister-action@master
-      with:
-        path: "/home/runner/work"
-        type: ".json"
-
-    - name: Output results
-      shell: bash
+    - name: 'Create SAS Token'
+      shell: pwsh
       run: |
-        echo "Found ${{ steps.pl.outputs.path_count }} file(s) with this extension:"
-        for i in ${{ steps.pl.outputs.paths }}; do
-        echo $i
-        done
+         Get-ChildItem -Path home/runner/work/*.json -Recurse -Force
+
+
     - name: Set current date as env variable
       shell: bash
       run: echo "SASExpiration=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
