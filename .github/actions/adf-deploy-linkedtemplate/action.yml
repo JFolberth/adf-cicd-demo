@@ -28,7 +28,7 @@ runs:
       id: pl
       uses: Rishabh510/Path-lister-action@master
       with:
-        path: "/home/runner/work/adf-cicd-demo/adf-cicd-demo"
+        path: "/home/runner/work"
         type: ".json"
 
     - name: Output results
