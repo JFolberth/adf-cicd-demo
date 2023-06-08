@@ -24,6 +24,19 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: Fetch action
+          id: pl
+          uses: Rishabh510/Path-lister-action@master
+          with:
+            path: ".github/"
+            type: ".json"
+
+        - name: Output results
+          run: |
+            echo "Found ${{ steps.pl.outputs.path_count }} file(s) with this extension:"
+            for i in ${{ steps.pl.outputs.paths }}; do
+            echo $i
+            done
     - name: Set current date as env variable
       shell: bash
       run: echo "SASExpiration=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
