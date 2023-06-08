@@ -24,15 +24,9 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: 'Create SAS Token'
-      shell: pwsh
-      run: |
-         Get-ChildItem -Path *.json -Recurse -Force
-
-
     - name: Set current date as env variable
       shell: bash
-      run: echo "SASExpiration=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+      run: echo "SASExpiration=$(date +1d +'%Y-%m-%d')" >> $GITHUB_ENV
     - name: Azure Login
       uses: azure/login@v1
       with:
