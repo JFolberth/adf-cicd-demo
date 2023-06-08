@@ -68,8 +68,8 @@ runs:
     - name: Run Pre-deployment script
       run: |
         ${{ github.workspace }}/PrePostDeploymentScript.ps1 `
-          -armTemplate "${{ inputs.arm-template-file }}" `
-          -armTemplateParameters "${{ inputs.arm-template-parameters-file}} " `
+          -armTemplate "${{ format('{0}/{1}', 'https://saadf1234deveus.blob.core.windows.net/templates/linkedTemplates/ArmTemplate_master.json',env.SAS_TOKEN) }}"`
+          -armTemplateParameters "${{ format('{0}/{1}{2}','https://saadf1234deveus.blob.core.windows.net/templates/datafactory/cicd-parameters', inputs.arm-template-parameters-file, env.SAS_TOKEN) }}" `
           -ResourceGroupName "${{ inputs.resource-group-name }}" `
           -DataFactoryName "${{ inputs.data-factory-name }}" `
           -predeployment $true `
@@ -85,9 +85,9 @@ runs:
         
     - name: Run Post-deployment script
       run: |
-         ${{ github.workspace }}//PrePostDeploymentScript.ps1 `
-          -armTemplate "${{ inputs.arm-template-file }}" `
-          -armTemplateParameters "${{ inputs.arm-template-parameters-file}} " `
+         ${{ github.workspace }}/PrePostDeploymentScript.ps1 `
+          -armTemplate "${{ format('{0}/{1}', 'https://saadf1234deveus.blob.core.windows.net/templates/linkedTemplates/ArmTemplate_master.json',env.SAS_TOKEN) }}"`
+          -armTemplateParameters "${{ format('{0}/{1}{2}','https://saadf1234deveus.blob.core.windows.net/templates/datafactory/cicd-parameters', inputs.arm-template-parameters-file, env.SAS_TOKEN) }}" `
           -ResourceGroupName "${{ inputs.resource-group-name }}" `
           -DataFactoryName '${{ inputs.data-factory-name }}' `
           -predeployment $false `
