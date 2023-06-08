@@ -27,7 +27,7 @@ runs:
     - name: 'Create SAS Token'
       shell: pwsh
       run: |
-         Get-ChildItem -Path home/runner/work/*.json -Recurse -Force
+         Get-ChildItem -Path *.json -Recurse -Force
 
 
     - name: Set current date as env variable
