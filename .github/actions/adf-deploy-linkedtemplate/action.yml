@@ -28,7 +28,7 @@ runs:
       id: pl
       uses: Rishabh510/Path-lister-action@master
       with:
-        path: "."
+        path: "github.workspace"
         type: ".json"
 
     - name: Output results
@@ -82,7 +82,7 @@ runs:
     - name: Run Pre-deployment script
       run: |
         ${{ github.workspace }}/PrePostDeploymentScript.ps1 `
-          -armTemplate datafactory/linkedTemplates/ARMTemplate_master.json`
+          -armTemplate ${{ format('{0}/{1}', github.workspace, "linkedTemplates/ARMTemplate_master.json")}}`
           -ResourceGroupName "${{ inputs.resource-group-name }}" `
           -DataFactoryName "${{ inputs.data-factory-name }}" `
           -predeployment $true `
