@@ -12,8 +12,8 @@ env:
   workingDir: 'azuredatafactory/src/'
   workingDirARMParameters: 'azuredatafactory/cicd-parameters/'
   arm-template-file: 'azuredatafactory/linkedTemplates/ARMTemplate_master.json'
-  dataFactoryNameDev: 'adf-github-dev-eus'
-  resourceGroupName: 'rg-github-dev-eus'
+  dataFactoryNameDev: 'adf-adfdemo2-dev-eus'
+  resourceGroupName: 'rg-adfdemo2-dev-eus'
 
 jobs:
   job-build-adf-arm-template:
