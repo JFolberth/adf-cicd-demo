@@ -42,18 +42,18 @@ runs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-           az storage account create --name saadf1234deveus --resource-group ${{ inputs.resource-group-name }}
+           az storage account create --name saadf1512deveus --resource-group ${{ inputs.resource-group-name }}
       
     - name: 'Create Container for Linked Templates'
       uses: azure/CLI@v1
       with:
         inlineScript: |
-           az storage container create --name templates --account-name saadf1234deveus
+           az storage container create --name templates --account-name saadf1512deveus
       
     - name: 'Create SAS Token'
       shell: pwsh
       run: |
-         $token= az storage container generate-sas --account-name saadf1234deveus --name templates --permissions r --expiry ${{ env.SASExpiration }} --output tsv
+         $token= az storage container generate-sas --account-name saadf1512deveus --name templates --permissions r --expiry ${{ env.SASExpiration }} --output tsv
          echo "SAS_TOKEN=$token"| Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
     - name: 'Copy Linked Templates to Azure Storage'
       uses: azure/CLI@v1
@@ -79,7 +79,7 @@ runs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-           az deployment group create --resource-group ${{ inputs.resource-group-name }} --template-uri ${{ format('{0}?{1}', 'https://saadf1234deveus.blob.core.windows.net/templates/linkedTemplates/ArmTemplate_master.json',env.SAS_TOKEN) }} --parameters ${{ format('{0}/{1}?{2}', 'https://saadf1234deveus.blob.core.windows.net/templates/datafactory/cicd-parameters', inputs.arm-template-parameters-file, env.SAS_TOKEN) }}
+           az deployment group create --resource-group ${{ inputs.resource-group-name }} --template-uri ${{ format('{0}?{1}', 'https://saadf1512deveus.blob.core.windows.net/templates/linkedTemplates/ArmTemplate_master.json',env.SAS_TOKEN) }} --parameters ${{ format('{0}/{1}?{2}', 'https://saadf1234deveus.blob.core.windows.net/templates/datafactory/cicd-parameters', inputs.arm-template-parameters-file, env.SAS_TOKEN) }}
 
    # - name: Run ARM deploy
    #  uses: azure/arm-deploy@v1
@@ -101,7 +101,7 @@ runs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-         az storage account delete --name saadf1234deveus --resource-group ${{ inputs.resource-group-name }} --yes
+         az storage account delete --name saadf1512deveus --resource-group ${{ inputs.resource-group-name }} --yes
 
     - name: Azure CLI script
       uses: azure/CLI@v1
