@@ -59,7 +59,7 @@ runs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-           az storage blob upload-batch --account-name saadf1234deveus --destination templates --source ${{ github.workspace }}
+           az storage blob upload-batch --account-name saadf1512deveus --destination templates --source ${{ github.workspace }}
          
     - name: Install Az PowerShell module
       run: if('${{ inputs.skipAzModuleInstallation }}' -ne 'true') { Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force }
@@ -79,14 +79,14 @@ runs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-           az deployment group create --resource-group ${{ inputs.resource-group-name }} --template-uri ${{ format('{0}?{1}', 'https://saadf1512deveus.blob.core.windows.net/templates/linkedTemplates/ArmTemplate_master.json',env.SAS_TOKEN) }} --parameters ${{ format('{0}/{1}?{2}', 'https://saadf1234deveus.blob.core.windows.net/templates/datafactory/cicd-parameters', inputs.arm-template-parameters-file, env.SAS_TOKEN) }}
+           az deployment group create --resource-group ${{ inputs.resource-group-name }} --template-uri ${{ format('{0}?{1}', 'https://saadf1512deveus.blob.core.windows.net/templates/linkedTemplates/ArmTemplate_master.json',env.SAS_TOKEN) }} --parameters ${{ format('{0}/{1}?{2}', 'https://saadf1512deveus.blob.core.windows.net/templates/datafactory/cicd-parameters', inputs.arm-template-parameters-file, env.SAS_TOKEN) }}
 
    # - name: Run ARM deploy
    #  uses: azure/arm-deploy@v1
    #   with:
    #     resourceGroupName: ${{ inputs.resource-group-name }}
-   #     template:  ${{ format('{0}?{1}', 'https://saadf1234deveus.blob.core.windows.net/templates/linkedTemplates/ArmTemplate_master.json',env.SAS_TOKEN) }}
-   #    parameters: ${{ format('{0}/{1}?{2}', 'https://saadf1234deveus.blob.core.windows.net/templates/datafactory/cicd-parameters', inputs.arm-template-parameters-file, env.SAS_TOKEN) }}
+   #     template:  ${{ format('{0}?{1}', 'https://saadf1512deveus.blob.core.windows.net/templates/linkedTemplates/ArmTemplate_master.json',env.SAS_TOKEN) }}
+   #    parameters: ${{ format('{0}/{1}?{2}', 'https://saadf1512deveus.blob.core.windows.net/templates/datafactory/cicd-parameters', inputs.arm-template-parameters-file, env.SAS_TOKEN) }}
         
     - name: Run Post-deployment script
       run: |
