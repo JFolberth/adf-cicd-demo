@@ -34,7 +34,7 @@ runs:
         enable-AzPSSession: true
           
     - name: Download a single artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v5
       with:
         name: datafactory
         
